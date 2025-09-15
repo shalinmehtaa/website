@@ -1,26 +1,109 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf8; /* off-white */
+  --foreground: #111111; /* soft black */
+  --muted: #666666;      /* neutral gray */
+  --divider: #e6e6e6;    /* subtle divider */
+  --accent: #2b2b2b;     /* understated gray accent */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-divider: var(--divider);
+  --color-accent: var(--accent);
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode is opt-in via [data-theme="dark"] on <html>, not system-driven */
+:root[data-theme="dark"] {
+  --background: #0b0c0f;
+  --foreground: #e6e6e6;
+  --muted: #a1a1aa;
+  --divider: #1f2328;
+  --accent: #d1d5db;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 150ms ease, text-decoration-color 150ms ease, background-color 150ms ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Subtle divider utility */
+.divider {
+  height: 1px;
+  background: var(--divider);
+}
+
+/* Prose defaults tuned for comfortable reading */
+.prose {
+  @apply max-w-3xl leading-8 text-[17px] text-[--color-foreground];
+}
+.prose :where(h1,h2,h3,h4){
+  @apply tracking-tight text-[--color-foreground];
+}
+.prose :where(h1){ @apply text-3xl md:text-4xl font-medium; }
+.prose :where(h2){ @apply mt-12 text-2xl md:text-3xl font-medium; }
+.prose :where(h3){ @apply mt-8 text-xl md:text-2xl font-normal; }
+.prose :where(p){ @apply my-5; }
+.prose :where(blockquote){
+  @apply border-l-[3px] pl-5 italic text-[--color-muted];
+  border-color: color-mix(in oklab, var(--accent) 20%, var(--divider));
+}
+.prose :where(code){ @apply rounded px-1.5 py-0.5 text-[85%] bg-black/5 dark:bg-white/10; }
+.prose :where(pre){ @apply rounded-lg p-4 bg-black/5 dark:bg-white/10 overflow-x-auto; }
+.prose :where(ul,ol){ @apply my-6; }
+.prose :where(a){ color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.prose :where(a:hover){ text-decoration-thickness: 2px; }
+
+/* Page container utility */
+.wrap {
+  @apply mx-auto px-6 md:px-8 max-w-3xl;
+}
+
+/* Notion-like list row styling */
+.row {
+  @apply flex items-center justify-between py-3 px-3 rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors;
+}
+
+/* Soft card utility for projects/photos */
+.card {
+  @apply rounded-xl bg-white/60 dark:bg-white/5 shadow-[0_1px_0_0_rgba(0,0,0,0.03),0_8px_30px_rgba(0,0,0,0.04)] ring-1 ring-black/5 backdrop-blur-[1px];
+}
+
+/* Sidebar depth and soft edge */
+.sidebar {
+  position: relative;
+  background: #f5f6f7; /* subtle tint */
+  border-right: 1px solid rgba(0,0,0,0.06); /* faint line */
+}
+
+:root[data-theme="dark"] .sidebar {
+  background: rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255,255,255,0.12);
 }
