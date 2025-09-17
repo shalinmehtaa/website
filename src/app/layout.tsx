@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/Layout";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -11,9 +12,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     template: "%s — Shalin Mehta",
-    default: "Shalin Mehta — Designer & Engineer",
+    default: "Shalin's Space",
   },
-  description: "Minimal writing and projects.",
+  description: "Writing, projects and experiments.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -25,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistMono.variable} antialiased bg-[--color-background] text-[--color-foreground]`}>
         <Layout>{children}</Layout>
+        <Analytics />
       </body>
     </html>
   );

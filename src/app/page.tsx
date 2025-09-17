@@ -9,10 +9,9 @@ export default function Home() {
       <section className="space-y-6">
         <h1 className="text-[28px] md:text-[32px] font-medium tracking-tight">Hello!</h1>
         <p className="max-w-2xl text-[17px] leading-8 text-[--color-foreground]">
-          I&apos;m Shalin. I am a quant researcher based in London. I am currently working on building products and doing research with AI.
+          I&apos;m Shalin. I am a quantitative researcher based in London, currently working on AI research and products.
         </p>
         <p className="max-w-2xl text-[17px] leading-8 text-[--color-foreground]">
-          I also enjoy taking pictures and long walks.
         </p>
       </section>
 
